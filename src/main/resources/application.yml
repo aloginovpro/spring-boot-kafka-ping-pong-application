@@ -1,0 +1,22 @@
+spring:
+  kafka:
+    listener:
+      ack-mode: manual
+    consumer:
+      bootstrap-servers: localhost:9091
+      group-id: my-consumer-1
+      key-deserializer: org.apache.kafka.common.serialization.VoidDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        enable.auto.commit: false
+        spring.json.trusted.packages: "*"
+        interceptor.classes: com.aloginovpro.kafka.interceptor.KafkaConsumerLoggingInterceptor
+    producer:
+      bootstrap-servers: localhost:9091
+      key-serializer: org.apache.kafka.common.serialization.VoidSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        interceptor.classes: com.aloginovpro.kafka.interceptor.KafkaProducerLoggingInterceptor
+topic:
+  ping-topic-name: ping
+  pong-topic-name: pong
